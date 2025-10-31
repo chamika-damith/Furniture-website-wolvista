@@ -21,25 +21,40 @@ export function getSupabaseBucket(): string | undefined {
 
 export async function uploadImageToSupabase(file: File, folder: string = 'blogs') {
   if (!SUPABASE_BUCKET) {
-    throw new Error('Missing NEXT_PUBLIC_SUPABASE_BUCKET');
+    throw new Error('Missing NEXT_PUBLIC_SUPABASE_BUCKET. Please check your .env.local file.');
   }
-  const supabase = getSupabaseClient();
-  const fileExt = file.name.split('.').pop();
-  const fileName = `${crypto.randomUUID()}.${fileExt}`;
-  const filePath = `${folder}/${fileName}`;
+  
+  try {
+    const supabase = getSupabaseClient();
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${crypto.randomUUID()}.${fileExt}`;
+    const filePath = `${folder}/${fileName}`;
 
-  const { error } = await supabase.storage.from(SUPABASE_BUCKET).upload(filePath, file, {
-    cacheControl: '3600',
-    upsert: false,
-    contentType: file.type,
-  });
+    const { error } = await supabase.storage.from(SUPABASE_BUCKET).upload(filePath, file, {
+      cacheControl: '3600',
+      upsert: false,
+      contentType: file.type,
+    });
 
-  if (error) {
-    throw error;
+    if (error) {
+      // Provide helpful error messages for common issues
+      if (error.message.includes('row-level security') || error.message.includes('new row violates')) {
+        throw new Error('Storage upload blocked by Row Level Security. Please make your Supabase bucket PUBLIC or set up proper RLS policies. See SUPABASE_SETUP.md for instructions.');
+      }
+      if (error.message.includes('not found')) {
+        throw new Error(`Bucket "${SUPABASE_BUCKET}" not found. Please create it in your Supabase dashboard.`);
+      }
+      throw new Error(`Upload failed: ${error.message}`);
+    }
+
+    const { data } = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(filePath);
+    return { publicUrl: data.publicUrl, path: filePath };
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error('Unknown error occurred during upload');
   }
-
-  const { data } = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(filePath);
-  return { publicUrl: data.publicUrl, path: filePath };
 }
 
 

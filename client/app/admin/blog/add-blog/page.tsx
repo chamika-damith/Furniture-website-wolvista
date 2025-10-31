@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Quill from "quill";
-import "quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import Thumbnail from "./Thumbnail";
 // import TagInput from "./components/TagInput";
 // import CategoryInput from "./components/CategoryInput";
@@ -26,9 +25,10 @@ import api from "@/lib/api";
 //   metaKeywords: string[];
 // }
 
-export default function QuillEditor() {
+function QuillEditor() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Form states
   const [title, setTitle] = useState("");
@@ -76,16 +76,45 @@ export default function QuillEditor() {
 
   // Initialize Quill and handle content changes (client-only)
   useEffect(() => {
-    if (editorRef.current && !quillInstanceRef.current) {
-      quillInstanceRef.current = new Quill(editorRef.current as unknown as HTMLElement, {
-        theme: "snow",
-        modules: quillModules as any,
-        formats: quillFormats as any,
-      });
-      quillInstanceRef.current.on("text-change", () => {
-        setContent(quillInstanceRef.current!.root.innerHTML);
-      });
-    }
+    setIsMounted(true);
+    
+    let isCancelled = false;
+    
+    const initQuill = async () => {
+      if (typeof window !== 'undefined' && editorRef.current && !quillInstanceRef.current && !isCancelled) {
+        try {
+          // Dynamically import Quill only on client side
+          const Quill = (await import("quill")).default;
+          // CSS is already loaded globally
+          
+          if (!isCancelled && editorRef.current) {
+            quillInstanceRef.current = new Quill(editorRef.current, {
+              theme: "snow",
+              modules: quillModules as any,
+              formats: quillFormats as any,
+            });
+            
+            quillInstanceRef.current.on("text-change", () => {
+              if (quillInstanceRef.current) {
+                setContent(quillInstanceRef.current.root.innerHTML);
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Failed to initialize Quill:", error);
+        }
+      }
+    };
+
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      initQuill();
+    }, 100);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(timer);
+    };
   }, []);
 
   const handleSubmit = async () => {
@@ -204,7 +233,13 @@ export default function QuillEditor() {
           <div className="rounded-xl bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-[17px] font-semibold text-[#201F31]">Description</h2>
             <div className="overflow-hidden rounded-lg border">
-              <div ref={editorRef} style={{ height: "500px" }} />
+              {isMounted ? (
+                <div ref={editorRef} style={{ height: "500px" }} />
+              ) : (
+                <div style={{ height: "500px" }} className="flex items-center justify-center text-gray-500">
+                  Loading editor...
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -264,3 +299,16 @@ export default function QuillEditor() {
     </div>
   );
 }
+
+// Export with SSR disabled to avoid "document is not defined" error
+export default dynamic(() => Promise.resolve(QuillEditor), {
+  ssr: false,
+  loading: () => (
+    <div className="mx-auto container max-w-7xl py-8 flex items-center justify-center min-h-screen">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading editor...</p>
+      </div>
+    </div>
+  ),
+});

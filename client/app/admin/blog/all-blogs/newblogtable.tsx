@@ -22,6 +22,8 @@ const AdminDashboardPage: React.FC = () => {
         
         // Fetch all blog type content
         const response = await api.content.list({ type: 'BLOG' });
+
+        console.log('Fetched blogs:', response);
         
         // Transform API response to match Blog type
         const transformedBlogs: Blog[] = response.map((item: any) => ({
