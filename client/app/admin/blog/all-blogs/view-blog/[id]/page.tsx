@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
-import { useRouter, useSearchParams, useParams } from "next/navigation";
+import { useSearchParams, useRouter, usePathname, useParams } from "next/navigation";
+import api from "@/lib/api";
 import Thumbnail from "./Thumbnail";
 
 import AddButton from './AddButton';
-import axiosInstance from "@/lib/axios-instance";
 
 interface BlogData {
   id?: string;
@@ -26,13 +26,13 @@ interface BlogData {
 }
 
 export default function QuillEditor() {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const params = useParams();
   const isEdit = searchParams.get("isEdit") === "true";
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useParams();
+  const contentId = (params as { id?: string })?.id || "";
 
   // Form states
   const [title, setTitle] = useState("");
@@ -76,39 +76,37 @@ export default function QuillEditor() {
     ]
   });
 
-  // Fetch blog data by id
+  // Populate from sessionStorage when navigated from table
   useEffect(() => {
-    const fetchBlog = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const id = params?.id as string;
-        const response = await axiosInstance.get(`/contents/${id}`);
-        const data: BlogData = response.data;
-        setTitle(data.title || "");
-        setSelectedTags(data.tags || []);
-        setSelectedCategories(data.categories || []);
-        setContentType(data.type || "BLOG");
-        setEventLocation(data.location || "");
-        setEventTime(data.time ? new Date(data.time).toISOString().slice(0, 16) : "");
-        setContent(data.content || "");
-        setThumbnailUrl(data.thumbnail || "");
-        setMode(data.mode || "DRAFT");
-        setSeoData({
-          seoTitle: data.seoTitle || "",
-          metaDescription: data.metaDescription || "",
-          metaKeywords: data.metaKeywords || [],
-        });
-        setBlogDate(data.time ? new Date(data.time).toISOString().split('T')[0] : "");
-      } catch {
-        setError("Failed to load blog data.");
-      } finally {
-        setLoading(false);
+    try {
+      if (typeof window !== "undefined") {
+        const raw = window.sessionStorage.getItem("selectedBlog");
+        if (raw) {
+          const b = JSON.parse(raw) as { title?: string; content?: string; thumbnailImage?: string; date?: string };
+          setTitle(b.title || "");
+          setContent(b.content || "");
+          setThumbnailUrl(b.thumbnailImage || "");
+          const rawDate = b.date || "";
+          let normalizedDate = "";
+          if (rawDate) {
+            // If already in yyyy-mm-dd keep as is; otherwise try to parse
+            const yyyyMmDdRegex = /^\d{4}-\d{2}-\d{2}$/;
+            if (yyyyMmDdRegex.test(rawDate)) {
+              normalizedDate = rawDate;
+            } else {
+              const parsed = new Date(rawDate);
+              if (!isNaN(parsed.getTime())) {
+                normalizedDate = parsed.toISOString().split("T")[0];
+              }
+            }
+          }
+          setBlogDate(normalizedDate);
+        }
       }
-    };
-    fetchBlog();
+    } catch {}
+  }, []);
 
-  }, [params?.id]);
+  // No backend fetching
 
   // Ensure Quill editor always displays the content
   useEffect(() => {
@@ -130,45 +128,37 @@ export default function QuillEditor() {
     }
   }, [isEdit, quill]);
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
+  // No backend submit
+  const handleUpdate = async () => {
+    if (!contentId) return;
     try {
-      const id = params?.id as string;
-      const payload: BlogData & { time?: string } = {
+      setIsSubmitting(true);
+      const payload: any = {
         title,
         content,
         tags: selectedTags,
         categories: selectedCategories,
         type: contentType,
-        location: contentType === "EVENTS" ? eventLocation : undefined,
-        time: blogDate ? new Date(blogDate).toISOString() : (contentType === "EVENTS" ? eventTime : undefined),
-        thumbnail: thumbnailUrl,
+        location: eventLocation || undefined,
+        // Prefer specific event time; else use blog date if provided
+        time: eventTime || blogDate || undefined,
+        thumbnail: thumbnailUrl || undefined,
         mode,
-        seoTitle: seoData.seoTitle,
-        metaDescription: seoData.metaDescription,
-        metaKeywords: seoData.metaKeywords,
+        seoTitle: seoData.seoTitle || undefined,
+        metaDescription: seoData.metaDescription || undefined,
+        metaKeywords: seoData.metaKeywords || undefined,
       };
-      // Remove undefined fields
-      const cleanedPayload = Object.fromEntries(
-        Object.entries(payload).filter(([, value]) => value !== undefined)
-      );
-      await axiosInstance.put(`/contents/${id}`, cleanedPayload);
-      router.push("/admin/blog/all-blogs");
-    } catch (error: unknown) {
-      const errorMessage = error && typeof error === 'object' && 'response' in error && 
-        error.response && typeof error.response === 'object' && 'data' in error.response &&
-        error.response.data && typeof error.response.data === 'object' && 'error' in error.response.data &&
-        typeof error.response.data.error === 'string' 
-        ? error.response.data.error 
-        : 'An error occurred while saving content.';
-      alert(errorMessage);
+      await api.content.update(String(contentId), payload);
+      alert("Blog updated successfully.");
+    } catch (e) {
+      console.error(e);
+      alert("Failed to update blog. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
+  // No backend loading/error UI
 
   return (
     <div className="mx-auto container max-w-7xl py-8">
@@ -257,12 +247,19 @@ export default function QuillEditor() {
                 <option value="PUBLISHED">Published</option>
               </select>
 
-              {isEdit && (
+              {/* Update button in edit mode */}
+              {isEdit ? (
                 <AddButton
-                  identifier="gallery-upload"
-                  buttonText={isSubmitting ? "Saving..." : "Save Changes"}
-                  className="w-full "
-                  onClick={handleSubmit}
+                  identifier="update-blog-btn"
+                  buttonText={isSubmitting ? "Updating..." : "Update"}
+                  onClick={handleUpdate}
+                  disabled={isSubmitting}
+                />
+              ) : (
+                <AddButton
+                  identifier="edit-blog-btn"
+                  buttonText="Edit"
+                  onClick={() => router.push(`${pathname}?isEdit=true`)}
                 />
               )}
             </div>

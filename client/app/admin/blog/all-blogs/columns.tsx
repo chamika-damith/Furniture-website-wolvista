@@ -1,3 +1,5 @@
+"use client";
+
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { RiEyeLine, RiDeleteBinLine, RiEditLine } from "react-icons/ri";
@@ -5,6 +7,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import DeletePopup from "./DeletePopup";
 import Image from "next/image";
+import api from "@/lib/api";
 
 export type Blog = {
   id: string;
@@ -17,21 +20,44 @@ export type Blog = {
 };
 
 // ActionCell component
-export const ActionCell = ({ row, handleDeleteBlog }: { row: { original: Blog }, handleDeleteBlog?: (id: string) => void }) => {
+export const ActionCell = ({ row, handleDeleteBlog }: { row: { original: Blog }, handleDeleteBlog?: (id: string) => Promise<void> }) => {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  const handleViewClick = (id: string) => router.push(`/admin/blog/all-blogs/view-blog/${id}?isEdit=false`);
-  const handleEditClick = (id: string) => router.push(`/admin/blog/all-blogs/view-blog/${id}?isEdit=true`);
+  const handleViewClick = (id: string) => {
+    try {
+      if (typeof window !== "undefined") {
+        window.sessionStorage.setItem("selectedBlog", JSON.stringify(row.original));
+      }
+    } catch {}
+    router.push(`/admin/blog/all-blogs/view-blog/${id}?isEdit=false`);
+  };
+  const handleEditClick = (id: string) => {
+    try {
+      if (typeof window !== "undefined") {
+        window.sessionStorage.setItem("selectedBlog", JSON.stringify(row.original));
+      }
+    } catch {}
+    router.push(`/admin/blog/all-blogs/view-blog/${id}?isEdit=true`);
+  };
   const handleDeleteClick = () => setOpen(true);
 
   const handleConfirmDelete = async () => {
     setLoading(true);
-    // Client-only delete: update parent state and close popup
-    if (handleDeleteBlog) handleDeleteBlog(row.original.id);
-    setOpen(false);
-    setLoading(false);
+    try {
+      if (handleDeleteBlog) {
+        await handleDeleteBlog(row.original.id);
+      } else {
+        await api.content.delete(row.original.id);
+      }
+      setOpen(false);
+    } catch (error) {
+      console.error('Failed to delete blog:', error);
+      // Optional: surface a toast/alert here
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClose = () => setOpen(false);
