@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../component/Navbar/Navbar'
+
 import Footer from '../component/Footer/Footer'
 import Image from 'next/image'
 import Collection1 from '@/public/image/Collection/Collection1.png'
@@ -7,11 +7,13 @@ import Collection2 from '@/public/image/Collection/Collection2.png'
 import Collection3 from '@/public/image/Collection/Collection3.png'
 import Collection4 from '@/public/image/Collection/Collection4.png'
 import Section08 from '../component/Home/Section08'
+import { Navbar2 } from '../component/Navbar/Navbar2'
 
 function page() {
     return (
-        <div className='containerpaddin container mx-auto'>
-            <Navbar />
+        <div>
+            <Navbar2 />
+            <div className='containerpaddin container mx-auto'>
             <div className='margin-y'>
                 <div className="lg:flex flex-row items-center justify-between gap-4">
                     <div className="subtitle text-left">
@@ -55,7 +57,8 @@ function page() {
             <Section08 />
         </div>
             </div>
-
+            </div>
+            <Footer />
         </div>
     )
 }

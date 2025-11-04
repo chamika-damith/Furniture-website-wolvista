@@ -1,17 +1,15 @@
 import React from "react";
 import Image from "next/image";
-import Navbar from "../component/Navbar/Navbar";
+import { Navbar2 } from "./Navbar/Navbar2";
 
 function ComingSoon() {
   return (
     <div>
       {/* Navbar */}
-      <div className="containerpaddin container mx-auto">
-        <Navbar />
-      </div>
+      <Navbar2 />
 
       {/* Main Coming Soon Section */}
-      <div className="margin-y">
+      <div className="mb-10">
         <div className="containerpaddin container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[70vh]">
             {/* Left Side - Content */}
@@ -29,7 +27,7 @@ function ComingSoon() {
               </h1>
 
               {/* Description */}
-              <p className="description text-[#0C0C0C]/70 font-poppins leading-relaxed max-w-xl">
+              <p className="description text-text/70 font-poppins leading-relaxed max-w-xl">
                 We're handcrafting a new collection of bespoke furniture pieces
                 that will elevate your living space. Each design is carefully
                 created with sustainably sourced wood and expert craftsmanship.
@@ -139,15 +137,7 @@ function ComingSoon() {
 
       {/* Bottom Decorative Text (like Footer style) */}
       <div className="">
-        <div className="bg-[#475158] text-white py-8">
-          <div className="containerpaddin container mx-auto">
-            <div className="text-center">
-              <div className="text-white text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] font-bold opacity-10">
-                COMING SOON
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   );

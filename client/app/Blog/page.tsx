@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Footer from '../component/Footer/Footer'
-import Navbar from '../component/Navbar/Navbar'
+import { Navbar2 } from '../component/Navbar/Navbar2'
 import Image from 'next/image'
 import Blog3 from '@/public/image/Blog/Blog3.png'
 import Blog1 from '@/public/image/Blog/Blog1.png'
@@ -12,8 +12,8 @@ function page() {
     const [activeCategory, setActiveCategory] = useState('All')
     return (
         <div>
+            <Navbar2 />
             <div className='containerpaddin container mx-auto'>
-            <Navbar />
                 <div className='margin-y'>
                     <div className="small-text">
                         Blog
