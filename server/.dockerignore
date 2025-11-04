@@ -1,0 +1,14 @@
+# Docker ignore file
+.git
+.gitignore
+README.md
+DEPLOYMENT.md
+.env
+.env.*
+!.env.example
+node_modules
+npm-debug.log
+dist
+.DS_Store
+*.swp
+*.swo
