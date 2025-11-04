@@ -13,7 +13,7 @@ import { useEffect, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import "./TiptapEditor.css";
 import { Color } from "@tiptap/extension-color";
-import { FontSize } from "@tiptap/extension-font-size";
+import { FontSize } from "./FontSizeExtension";
 
 import { Image as TipTapImage } from "@tiptap/extension-image";
 import EditorToolbar from "./EditorToolbar"; // ✅ Importing the new toolbar component
@@ -26,14 +26,14 @@ const TiptapEditor = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedColor, setSelectedColor] = useState("#000000"); // Default text color
   const [selectedFontSize, setSelectedFontSize] = useState("16px"); // Default font size
-  const [selectedHighlightColor, setSelectedHighlightColor] = useState("#FFFF00"); // Default highlight color
+  const [selectedHighlightColor, setSelectedHighlightColor] =
+    useState("#FFFF00"); // Default highlight color
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const [contentType, setContentType] = useState(""); // State for content type
   const [eventLocation, setEventLocation] = useState(""); // State for event location
   const [eventTime, setEventTime] = useState(""); // State for event time
-
 
   const editor = useEditor({
     extensions: [
@@ -56,7 +56,6 @@ const TiptapEditor = () => {
     ],
     content: "<p>Start typing...</p>",
   });
-  
 
   const handleDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -78,7 +77,7 @@ const TiptapEditor = () => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleDrop,
     accept: {
-      'image/*': ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp']
+      "image/*": [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp"],
     },
     noClick: true,
     noKeyboard: true,
@@ -117,22 +116,22 @@ const TiptapEditor = () => {
     editor.chain().focus().toggleHighlight({ color }).run();
   };
 
-
-
   const handleCategoryChange = (categories: string[]) => {
     setSelectedCategories(categories); // Set the selected categories from child
   };
 
-  const handleContentTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleContentTypeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setContentType(event.target.value);
   };
 
   const handleSubmit = async () => {
     if (!editor) return;
-  
+
     // Get the content from the editor (which includes base64 images)
     const content = editor.getHTML();
-  
+
     // Create the payload including title, content, tags, categories, and event-specific fields
     const payload = {
       title, // Add the title to the payload
@@ -143,24 +142,31 @@ const TiptapEditor = () => {
       location: contentType === "EVENTS" ? eventLocation : undefined, // Only include for events
       time: contentType === "EVENTS" ? eventTime : undefined, // Only include for events
     };
-  
+
     console.log(payload, "payload");
-  
+
     try {
       // Send the payload to your backend API
       await axiosInstance.post("/contents", payload, {
         headers: { "Content-Type": "application/json" },
       });
-  
+
       alert("Content saved successfully!");
     } catch (error: unknown) {
       console.error("Error submitting content:", error);
-      const errorMessage = error && typeof error === 'object' && 'response' in error && 
-        error.response && typeof error.response === 'object' && 'data' in error.response &&
-        error.response.data && typeof error.response.data === 'object' && 'error' in error.response.data &&
-        typeof error.response.data.error === 'string' 
-        ? error.response.data.error 
-        : 'An error occurred while saving content.';
+      const errorMessage =
+        error &&
+        typeof error === "object" &&
+        "response" in error &&
+        error.response &&
+        typeof error.response === "object" &&
+        "data" in error.response &&
+        error.response.data &&
+        typeof error.response.data === "object" &&
+        "error" in error.response.data &&
+        typeof error.response.data.error === "string"
+          ? error.response.data.error
+          : "An error occurred while saving content.";
       alert(errorMessage);
     }
   };
@@ -186,7 +192,9 @@ const TiptapEditor = () => {
 
       {/* Content Type Selector */}
       <div className="space-y-4">
-        <label className="block text-lg font-semibold">Select Content Type</label>
+        <label className="block text-lg font-semibold">
+          Select Content Type
+        </label>
         <select
           value={contentType}
           onChange={handleContentTypeChange}
@@ -221,7 +229,11 @@ const TiptapEditor = () => {
       </div>
 
       {/* Tag Input Component */}
-      <TagInput onTagsChange={setSelectedTags} placeholder="Add tags..." isEdit={false} />
+      <TagInput
+        onTagsChange={setSelectedTags}
+        placeholder="Add tags..."
+        isEdit={false}
+      />
 
       {/* Category Input */}
       <CategoryInput onCategoriesChange={handleCategoryChange} />

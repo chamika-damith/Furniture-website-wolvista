@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { GoArrowUpRight } from "react-icons/go";
-import { Button } from "@/components/admin/ui/button";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import "@/styles/user/button-hover.css";
 

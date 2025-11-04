@@ -75,7 +75,13 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({
         <Quote size={18} /> Blockquote
       </button>
       <button
-        onClick={() => editor.chain().focus().toggleHighlight().run()}
+        onClick={() =>
+          editor
+            .chain()
+            .focus()
+            .toggleHighlight({ color: selectedHighlightColor })
+            .run()
+        }
         className={editor.isActive("highlight") ? "active" : ""}
       >
         <Highlighter size={18} /> Highlight
