@@ -26,16 +26,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Routes
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (_req: Request, res: Response) => {
   res.json({ message: 'Welcome to Furniture Website API' });
 });
 
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
 // Example route to test Prisma connection
-app.get('/api/test-db', async (req: Request, res: Response) => {
+app.get('/api/test-db', async (_req: Request, res: Response) => {
   try {
     // This will test the database connection
     await prisma.$connect();
@@ -50,7 +50,7 @@ app.use('/contents', contentRoutes);
 
 
 // Error handling middleware
-app.use((err: Error, req: Request, res: Response, next: any) => {
+app.use((err: Error, _req: Request, res: Response, _next: any) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });
