@@ -67,6 +67,15 @@
   @apply my-[20px] sm:my-[30px] md:my-[40px] lg:my-[50px] xl:my-[60px] 2xl:my-[70px];
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);

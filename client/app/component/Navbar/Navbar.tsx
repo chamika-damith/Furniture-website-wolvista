@@ -36,10 +36,8 @@ function Navbar() {
               >
                 About
               </Link>
-              <Link
-                href="/collection"
-                className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
-              >
+
+              <Link href="/Collection" className='text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium'>
                 Collection
               </Link>
               <Link
@@ -111,10 +109,9 @@ function Navbar() {
               >
                 About
               </Link>
-              <Link
-                href="/collection"
-                className="block px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors duration-200"
-              >
+
+              <Link href="/Collection" className='block px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors duration-200'>
+
                 Collection
               </Link>
               <Link
@@ -129,10 +126,9 @@ function Navbar() {
               >
                 Appointment
               </Link>
-              <Link
-                href="/blog"
-                className="block px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors duration-200"
-              >
+
+              <Link href="/Blog" className='block px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors duration-200'>
+
                 Blog
               </Link>
             </div>

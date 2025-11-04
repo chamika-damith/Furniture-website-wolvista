@@ -1,0 +1,76 @@
+{
+    "blog": [
+        {
+            "id": 1,
+            "title": "How to build furniture",
+            "description": "Explore our thoughts, inspirations, and behind-the-scenes stories on craftsman....",
+            "image": "https://via.placeholder.com/150",
+            "category": "Living",
+            "time": "3 min read"
+        },
+        {
+            "id": 2,
+            "title": "How to build furniture",
+            "description": "Explore our thoughts, inspirations, and behind-the-scenes stories on craftsman....",
+            "image": "https://via.placeholder.com/150",
+            "category": "Living",
+            "time": "3 min read"
+        },
+        {
+            "id": 3,
+            "title": "How to build furniture",
+            "description": "Explore our thoughts, inspirations, and behind-the-scenes stories on craftsman....",
+            "image": "https://via.placeholder.com/150",
+            "category": "Living",
+            "time": "3 min read"
+        },
+        {
+            "id": 4,
+            "title": "How to build furniture",
+            "description": "Explore our thoughts, inspirations, and behind-the-scenes stories on craftsman....",
+            "image": "https://via.placeholder.com/150",
+            "category": "Living",
+            "time": "3 min read"
+        },
+        {
+            "id": 5,
+            "title": "How to build furniture",
+            "description": "Explore our thoughts, inspirations, and behind-the-scenes stories on craftsman....",
+            "image": "https://via.placeholder.com/150",
+            "category": "Living",
+            "time": "3 min read"
+        },
+        {
+            "id": 6,
+            "title": "How to build furniture",
+            "description": "Explore our thoughts, inspirations, and behind-the-scenes stories on craftsman....",
+            "image": "https://via.placeholder.com/150",
+            "category": "Living",
+            "time": "3 min read"
+        },
+        {
+            "id": 7,
+            "title": "How to build furniture",
+            "description": "Explore our thoughts, inspirations, and behind-the-scenes stories on craftsman....",
+            "image": "https://via.placeholder.com/150",
+            "category": "Living",
+            "time": "3 min read"
+        },
+        {
+            "id": 8,
+            "title": "How to build furniture",
+            "description": "Explore our thoughts, inspirations, and behind-the-scenes stories on craftsman....",
+            "image": "https://via.placeholder.com/150",
+            "category": "Living",
+            "time": "3 min read"
+        },
+        {
+            "id": 9,
+            "title": "How to build furniture",
+            "description": "Explore our thoughts, inspirations, and behind-the-scenes stories on craftsman....",
+            "image": "https://via.placeholder.com/150",
+            "category": "Living",
+            "time": "3 min read"
+        }
+    ]
+}
