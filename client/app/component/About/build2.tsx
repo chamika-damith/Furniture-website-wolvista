@@ -6,7 +6,7 @@ function Build2() {
     <div className="margin-y">
       <div
         data-aos="fade-up"
-        data-aos-duration="2000"
+        data-aos-duration="3000"
         className="containerpaddin container mx-auto"
       >
         {/* Who We Are Label */}
@@ -23,12 +23,12 @@ function Build2() {
 
             {/* Images Container - Grid View */}
             <div className="w-full mt-4">
-              <div className="relative w-full h-[25vh] sm:h-[40vh] md:h-[50vh] lg:h-[30vh] xl:h-[40vh] 2xl:h-[42vh]">
+              <div className="relative w-full h-[25vh] sm:h-[40vh] md:h-[50vh] lg:h-[30vh] xl:h-[40vh] 2xl:h-[44vh]">
                 <Image
                   src="/image/about/built/Groupchair.png"
                   alt="Furniture collection showcase"
                   fill
-                  className="object-cover rounded-[16px] sm:rounded-[20px] md:rounded-[24px]"
+                  className=" "
                 />
               </div>
             </div>

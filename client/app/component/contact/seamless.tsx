@@ -3,7 +3,11 @@ import React from "react";
 function Seamless() {
   return (
     <div className="margin-y">
-      <div className="containerpaddin container mx-auto">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="3000"
+        className="containerpaddin container mx-auto"
+      >
         <div className="flex flex-col items-center justify-center text-center max-w-6xl mx-auto">
           {/* Main Text */}
           <div className="text-[24px] sm:text-[28px] md:text-[32px] lg:text-[34px] xl:text-[36px] 2xl:text-[36px] font-medium font-poppins text-black mb-8 leading-tight">
@@ -15,7 +19,12 @@ function Seamless() {
           <>
             {/* Mobile/SM: visible, full width */}
             <div className="py-0 lg:py-0 md:hidden w-full">
-              <a href="https://calendar.app.google/2iiAARicQAcrX5m69" target="_blank" rel="noopener noreferrer" className="w-full group bg-[#475158] text-white rounded-full transition-all duration-300 hover:scale-[1.01] hover:bg-opacity-90 inline-block">
+              <a
+                href="https://calendar.app.google/2iiAARicQAcrX5m69"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full group bg-[#475158] text-white rounded-full transition-all duration-300 hover:scale-[1.01] hover:bg-opacity-90 inline-block"
+              >
                 <div className="flex items-center w-full">
                   <div className="text-white description px-4 flex-1 text-center font-poppins">
                     Book Appointment
@@ -34,7 +43,12 @@ function Seamless() {
             </div>
             {/* MD and up: original button */}
             <div className="py-4 lg:py-0 hidden md:block">
-              <a href="https://calendar.app.google/2iiAARicQAcrX5m69" target="_blank" rel="noopener noreferrer" className="group md:mb-0 lg:mb-4 bg-[#475158] text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-opacity-90 inline-block">
+              <a
+                href="https://calendar.app.google/2iiAARicQAcrX5m69"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group md:mb-0 lg:mb-4 bg-[#475158] text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-opacity-90 inline-block"
+              >
                 <div className="flex flex-row items-center justify-center">
                   <div className="text-white description sm:px-3 md:px-5 lg:px-2 xl:px-3 2xl:px-4 font-poppins">
                     Book Appointment

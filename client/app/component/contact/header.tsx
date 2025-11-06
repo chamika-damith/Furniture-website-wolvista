@@ -4,7 +4,11 @@ function Header() {
   return (
     <div className="margin-y">
       {/* Text Section with Grid Layout */}
-      <div className="containerpaddin container mx-auto">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="3000"
+        className="containerpaddin container mx-auto"
+      >
         {/* Subtitle */}
         <div className="small-text text-[#0C0C0C80] font-poppins">
           Appointment & Contact

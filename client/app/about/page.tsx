@@ -11,14 +11,12 @@ function page() {
   return (
     <div>
       <Navbar2 />
-      <div className="containerpaddin container mx-auto">
-        
-      </div>
+      <div className="containerpaddin container mx-auto"></div>
       <Header />
       <Stats18k />
       <Build2 />
       <Craft />
-      <From />
+      {/* <From /> */}
       <Consult />
       <Bring />
       <Footer />

@@ -4,11 +4,15 @@ import Image from "next/image";
 function CtLogo() {
   return (
     <div className="margin-y">
-      <div className="containerpaddin container mx-auto max-w-7xl">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="3000"
+        className="containerpaddin container mx-auto max-w-7xl"
+      >
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 lg:gap-12">
           {/* Email Address Card */}
           <div className="flex flex-col items-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#EBEBEB] flex items-center justify-center mb-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#EBEBEB] flex items-center justify-center mb-4 hover:scale-110 transition-all duration-300">
               <Image
                 src="/image/contact/ctloog/mail.png"
                 alt="Email"
@@ -27,7 +31,7 @@ function CtLogo() {
 
           {/* Contact Info Card */}
           <div className="flex flex-col items-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#EBEBEB] flex items-center justify-center mb-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#EBEBEB] flex items-center justify-center mb-4 hover:scale-110 transition-all duration-300">
               <Image
                 src="/image/contact/ctloog/phone-call.png"
                 alt="Phone"
@@ -46,7 +50,7 @@ function CtLogo() {
 
           {/* Our Address Card */}
           <div className="flex flex-col items-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#EBEBEB] flex items-center justify-center mb-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#EBEBEB] flex items-center justify-center mb-4 hover:scale-110 transition-all duration-300">
               <Image
                 src="/image/contact/ctloog/Location.png"
                 alt="Location"

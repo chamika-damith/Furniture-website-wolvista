@@ -5,8 +5,8 @@ function Craft() {
   return (
     <div className="margin-y">
       <div
-        data-aos="fade-up"
-        fata-aos-duration="2000"
+        // data-aos="fade-up"
+        // data-aos-duration="3000"
         className="containerpaddin container mx-auto"
       >
         <div className="small-text text-[#0C0C0C80] font-poppins">
@@ -14,7 +14,11 @@ function Craft() {
         </div>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-12 items-start">
           {/* Left Side - Content */}
-          <div className="flex flex-col gap-4 lg:gap-2">
+          <div
+            data-aos="fade-up"
+            data-aos-duration="3000"
+            className="flex flex-col gap-4 lg:gap-2"
+          >
             <div className="flex flex-col gap-0 xl:gap-15 ">
               {/* Main Title */}
               <h2 className="text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] font-semibold font-poppins leading-tight">
@@ -33,9 +37,13 @@ function Craft() {
             </div>
           </div>
 
-          <div className="flex gap-2 md:gap-4 w-full xl:w-[90%] h-[40vh] sm:h-[50vh] md:h-[50vh] lg:h-[70vh] xl:h-[50vh] 2xl:h-[60vh]">
+          <div className="flex gap-2 md:gap-4 w-full xl:w-[90%] h-[40vh] sm:h-[50vh] md:h-[50vh] lg:h-[70vh] xl:h-[50vh] 2xl:h-[50vh]">
             {/* Left Image  */}
-            <div className="relative flex-1">
+            <div
+              data-aos="fade-left"
+              data-aos-duration="3000"
+              className="relative flex-1"
+            >
               <Image
                 src="/image/about/crafting/Rectangle 59.png"
                 alt="Wooden chair with built-in shelving"
@@ -45,7 +53,11 @@ function Craft() {
             </div>
 
             {/* Right Image  */}
-            <div className="relative flex-1">
+            <div
+              data-aos="fade-right"
+              data-aos-duration="3000"
+              className="relative flex-1"
+            >
               <Image
                 src="/image/about/crafting/Rectangle 60.png"
                 alt="Tall wooden cabinet storage unit"

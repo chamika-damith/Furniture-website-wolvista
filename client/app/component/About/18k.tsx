@@ -3,7 +3,11 @@ import React from "react";
 function Stats18k() {
   return (
     <div className="margin-y">
-      <div className="containerpaddin container mx-auto">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="3000"
+        className="containerpaddin container mx-auto"
+      >
         <div className="flex md:flex-row justify-between items-center md:items-center gap-8 md:gap-4 max-w-6xl mx-auto">
           {/* First Stat */}
           <div className="flex flex-col items-center md:items-start">

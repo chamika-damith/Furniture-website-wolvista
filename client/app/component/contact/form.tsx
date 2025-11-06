@@ -7,7 +7,12 @@ function Form() {
       <div className="containerpaddin container mx-auto py-10 sm:py-0 ">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
           {/* Left Side - Contact Form */}
-          <div className="flex flex-col order-2 lg:order-1">
+          <div
+            data-aos="fade-up"
+            data-aos-duration="3000"
+            data-aos-delay="100"
+            className="flex flex-col order-2 lg:order-1"
+          >
             {/* Form Fields */}
             <form className="flex flex-col gap-4">
               {/* First Row - First Name and Last Name */}
@@ -164,9 +169,13 @@ function Form() {
           </div>
 
           {/* Right Side - Images */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 order-1 lg:order-2">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-4 lg:gap-6 order-1 lg:order-2">
             {/* Top Image */}
-            <div className="w-full">
+            <div
+              data-aos="fade-left"
+              data-aos-duration="3000"
+              className="w-full"
+            >
               <Image
                 src="/image/contact/form/Rectangle 65.png"
                 alt="Modern Living Space"
@@ -177,7 +186,11 @@ function Form() {
             </div>
 
             {/* Bottom Image */}
-            <div className="w-full">
+            <div
+              data-aos="fade-right"
+              data-aos-duration="3000"
+              className="w-full"
+            >
               <Image
                 src="/image/contact/form/Rectangle 96.png"
                 alt="Contemporary Dining Area"
