@@ -15,7 +15,7 @@ function Header() {
           <div className="title ">About Us</div>
 
           {/* Description on Right */}
-          <div className="description">
+          <div className="description ">
             At The Everwood Collection, we believe furniture should be more than
             functional — it should tell a story of precision, purpose, and
             artistry.

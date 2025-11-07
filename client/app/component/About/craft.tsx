@@ -4,11 +4,7 @@ import Image from "next/image";
 function Craft() {
   return (
     <div className="margin-y">
-      <div
-        // data-aos="fade-up"
-        // data-aos-duration="3000"
-        className="containerpaddin container mx-auto"
-      >
+      <div className="containerpaddin container mx-auto">
         <div className="small-text text-[#0C0C0C80] font-poppins">
           What We Do
         </div>
@@ -26,7 +22,7 @@ function Craft() {
               </h2>
 
               {/* Description */}
-              <p className="description pt-0 xl:pt-5 text-[#0C0C0C]/70 font-poppins leading-relaxed">
+              <p className="description pt-0 xl:pt-[4%] text-[#0C0C0C]/70 font-poppins leading-relaxed">
                 At Everwood, we design and craft bespoke furniture that marries
                 sophistication with enduring quality. Each creation is built
                 using sustainably sourced wood and shaped by expert local
@@ -54,7 +50,7 @@ function Craft() {
 
             {/* Right Image  */}
             <div
-              data-aos="fade-right"
+              data-aos="fade-left"
               data-aos-duration="3000"
               className="relative flex-1"
             >
