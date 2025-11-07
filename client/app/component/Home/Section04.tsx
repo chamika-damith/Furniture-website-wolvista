@@ -3,7 +3,7 @@ import Image from 'next/image'
 function Section04() {
   return (
     <div className='margin-y'>
-        <div className='flex flex-col md:flex-row lg:gap-6 gap-10 md:gap-4 xl:gap-8 2xl:gap-10'>
+        <div className='flex flex-col md:flex-row lg:gap-6 gap-10 md:gap-4 xl:gap-8 2xl:gap-10 items-center justify-center'>
             <div data-aos="fade-up"
             data-aos-delay="100"
             data-aos-duration="2000">
@@ -11,7 +11,7 @@ function Section04() {
                 <div className='overflow-hidden rounded-lg group cursor-pointer'>
                     <Image src="/image/Home/Rectanglek.png" alt="Section04" width={1520} height={400} className='w-[300px] h-auto transition-all duration-700 hover:scale-110' />
                 </div>
-                <div className='description font-bold'>
+                <div className='text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold font-poppins'>
                 Modern Sofas
                 </div>
                 <div className='description'>
@@ -26,7 +26,7 @@ function Section04() {
                 <div className='overflow-hidden rounded-lg group cursor-pointer'>
                     <Image src="/image/Home/Rectanglekk.png" alt="Section04" width={1920} height={500} className='w-[1150px] h-auto transition-all duration-700 hover:scale-110' />
                 </div>
-                <div className='description font-bold'>
+                <div className='text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold font-poppins'>
                 Classic Sofas
                 </div>
                 <div className='description'>
@@ -41,8 +41,8 @@ function Section04() {
                 <div className='overflow-hidden rounded-lg group cursor-pointer'>
                     <Image src="/image/Home/Rectanglekkk.png" alt="Section04" width={1920} height={500} className='w-[450px] h-auto transition-all duration-700 hover:scale-110' />
                 </div>
-                <div className='description font-bold'>
-                Contemporary Sofas
+                <div className='text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold font-poppins'>
+                Contemporary 
                 </div>
                 <div className='description'>
                 Soft curves, vibrant tones, blending innovation with everyday modern comfort.
@@ -56,8 +56,8 @@ function Section04() {
                 <div className='overflow-hidden rounded-lg group cursor-pointer'>
                     <Image src="/image/Home/Rectanglekkkk.png" alt="Section04" width={1920} height={500} className='w-[250px] h-auto transition-all duration-700 hover:scale-110' />
                 </div>
-                <div className='description font-bold'>
-                Luxury Sectional Sofas
+                <div className='text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold font-poppins'>
+                Ectional Sofas
                 </div>
                 <div className='description'>
                 Spacious, customizable seating designed for family gatherings and modern interiors.
