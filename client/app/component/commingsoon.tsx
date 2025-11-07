@@ -101,7 +101,11 @@ function ComingSoon() {
             <div className="order-2 lg:order-2">
               <div className="grid grid-cols-2 gap-4 h-[60vh] sm:h-[70vh] lg:h-[75vh]">
                 {/* Top Left Image */}
-                <div className="relative rounded-lg overflow-hidden">
+                <div
+                  data-aos="fade-right"
+                  data-aos-duration="2000"
+                  className="relative rounded-lg overflow-hidden"
+                >
                   <Image
                     src="/image/about/crafting/1.jpg"
                     alt="Crafted furniture piece"
@@ -111,7 +115,11 @@ function ComingSoon() {
                 </div>
 
                 {/* Top Right Image */}
-                <div className="relative rounded-lg overflow-hidden">
+                <div
+                  data-aos="fade-right"
+                  data-aos-duration="2000"
+                  className="relative rounded-lg overflow-hidden"
+                >
                   <Image
                     src="/image/about/crafting/2.jpg"
                     alt="Wooden furniture detail"
@@ -121,7 +129,11 @@ function ComingSoon() {
                 </div>
 
                 {/* Bottom Spanning Image */}
-                <div className="relative col-span-2 rounded-lg overflow-hidden">
+                <div
+                  data-aos="fade-up"
+                  data-aos-duration="2000"
+                  className="relative col-span-2 rounded-lg overflow-hidden"
+                >
                   <Image
                     src="/image/about/crafting/3.jpg"
                     alt="Modern living space"

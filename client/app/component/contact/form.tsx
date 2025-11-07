@@ -191,7 +191,7 @@ function Form() {
 
             {/* Bottom Image */}
             <div
-              data-aos="fade-right"
+              data-aos="fade-left"
               data-aos-duration="3000"
               className="w-full"
             >
