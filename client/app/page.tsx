@@ -20,12 +20,12 @@ export default function Home() {
         <div data-aos="fade-up"
           data-aos-delay="100"
           data-aos-duration="2000">
-          <Section03 />
+          <Section07 />
         </div>
         <div data-aos="fade-up"
           data-aos-delay="100"
           data-aos-duration="2000">
-          <Section04 />
+          <Section08 />
         </div>
         <div data-aos="fade-up"
           data-aos-delay="100"
@@ -37,15 +37,16 @@ export default function Home() {
           data-aos-duration="2000">
           <Section06 />
         </div>
+
         <div data-aos="fade-up"
           data-aos-delay="100"
           data-aos-duration="2000">
-          <Section07 />
+          <Section03 />
         </div>
         <div data-aos="fade-up"
           data-aos-delay="100"
           data-aos-duration="2000">
-          <Section08 />
+          <Section04 />
         </div>
         <div data-aos="fade-up"
           data-aos-delay="100"
