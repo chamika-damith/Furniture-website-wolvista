@@ -105,7 +105,7 @@ function page() {
                                 </button>
                             </div>
                         </div>
-                        <Section08 />
+                        <Section08 selectedCategory={activeCategory} />
                     </div>
                     </div>
                 </div>

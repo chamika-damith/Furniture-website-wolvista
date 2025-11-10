@@ -6,7 +6,8 @@ const products = [
     { 
         id: 1, 
         name: 'Yellow Chair', 
-        price: '$126.00', 
+        price: '$126.00',
+        category: 'Living',
         images: {
             black: '/image/Home/Chair01.png',
             gray: '/image/Home/Chair02.png',
@@ -15,8 +16,9 @@ const products = [
     },
     { 
         id: 2, 
-        name: 'Yellow Chair', 
-        price: '$126.00', 
+        name: 'Modern Sofa', 
+        price: '$326.00',
+        category: 'Living',
         images: {
             black: '/image/Home/Chair02.png',
             gray: '/image/Home/Chair03.png',
@@ -25,8 +27,9 @@ const products = [
     },
     { 
         id: 3, 
-        name: 'Yellow Chair', 
-        price: '$126.00', 
+        name: 'Bed Frame', 
+        price: '$526.00',
+        category: 'Bedroom',
         images: {
             black: '/image/Home/Chair03.png',
             gray: '/image/Home/Chair04.png',
@@ -35,8 +38,9 @@ const products = [
     },
     { 
         id: 4, 
-        name: 'Yellow Chair', 
-        price: '$126.00', 
+        name: 'Wardrobe Set', 
+        price: '$826.00',
+        category: 'Wardrobes',
         images: {
             black: '/image/Home/Chair04.png',
             gray: '/image/Home/Chair05.png',
@@ -45,8 +49,9 @@ const products = [
     },
     { 
         id: 5, 
-        name: 'Yellow Chair', 
-        price: '$126.00', 
+        name: 'Dining Chair', 
+        price: '$156.00',
+        category: 'Living',
         images: {
             black: '/image/Home/Chair05.png',
             gray: '/image/Home/Chair01.png',
@@ -55,8 +60,9 @@ const products = [
     },
     { 
         id: 6, 
-        name: 'Yellow Chair', 
-        price: '$126.00', 
+        name: 'Bedroom Cabinet', 
+        price: '$426.00',
+        category: 'Bedroom',
         images: {
             black: '/image/Home/Chair02.png',
             gray: '/image/Home/Chair01.png',
@@ -71,7 +77,7 @@ const colorOptions = [
     { id: 'sage', bg: 'bg-green-600', style: { backgroundColor: '#7B8F7E' } }
 ]
 
-function Section08() {
+function Section08({ selectedCategory }: { selectedCategory?: string } = {}) {
     const [selectedColors, setSelectedColors] = useState<{ [key: number]: string }>({
         1: 'black',
         2: 'black',
@@ -88,10 +94,14 @@ function Section08() {
         }))
     }
 
+    const filteredProducts = selectedCategory && selectedCategory !== 'All' 
+        ? products.filter(product => product.category === selectedCategory)
+        : products;
+
     return (
         <div className='my-10'>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-                {products.map((product) => (
+                {filteredProducts.map((product) => (
                     <div key={product.id} className='relative'>
                         <Image src="/image/Home/Rectangle.png" alt="Section08" width={1920} height={500} className='w-full' />
                         {/* Color Swatches */}
