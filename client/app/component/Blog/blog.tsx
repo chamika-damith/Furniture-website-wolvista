@@ -21,6 +21,8 @@ function blog({ selectedCategory = 'All' }: BlogProps) {
     const [blogs, setBlogs] = useState<Blog[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchBlogs = async () => {
@@ -104,6 +106,16 @@ function blog({ selectedCategory = 'All' }: BlogProps) {
         return blog.tags && blog.tags.some(tag => tag === selectedCategory);
     });
 
+    const handleBlogClick = (blog: Blog) => {
+        setSelectedBlog(blog);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedBlog(null);
+    };
+
     if (blogs.length === 0) {
         return (
             <div className='margin-y'>
@@ -138,7 +150,19 @@ function blog({ selectedCategory = 'All' }: BlogProps) {
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                     {filteredBlogs.map((blog) => (
-                        <div key={blog.id} className='rounded-2xl overflow-hidden'>
+                        <div 
+                            key={blog.id} 
+                            className='rounded-2xl overflow-hidden cursor-pointer transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg' 
+                            onClick={() => handleBlogClick(blog)}
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter' || event.key === ' ') {
+                                    event.preventDefault();
+                                    handleBlogClick(blog);
+                                }
+                            }}
+                            role='button'
+                            tabIndex={0}
+                        >
                             <div className='relative'>
                                 <Image 
                                     src={blog.thumbnail || '/image/Blog/Blog1.png'} 
@@ -170,7 +194,50 @@ function blog({ selectedCategory = 'All' }: BlogProps) {
                     ))}
                 </div>
             </div>
-           
+            {isModalOpen && selectedBlog && (
+                <div className='fixed inset-0 z-50 flex items-center justify-center px-4 py-6'>
+                    <div className='absolute inset-0 ' onClick={handleCloseModal} />
+                    <div className='relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl'>
+                        <button 
+                            type='button' 
+                            onClick={handleCloseModal} 
+                            className='absolute top-4 right-4 text-button bg-gray-100 hover:bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center text-lg font-semibold transition-colors duration-200'
+                            aria-label='Close blog details'
+                        >
+                            ×
+                        </button>
+                        <div className='overflow-hidden rounded-t-3xl'>
+                            <Image
+                                src={selectedBlog.thumbnail || '/image/Blog/Blog1.png'}
+                                alt={selectedBlog.title}
+                                className='w-full h-72 object-cover'
+                                width={800}
+                                height={288}
+                            />
+                        </div>
+                        <div className='p-6 md:p-8 space-y-4'>
+                            <div className='flex flex-wrap items-center justify-between gap-3'>
+                                <h2 className='text-3xl font-bold text-black'>
+                                    {selectedBlog.title}
+                                </h2>
+                                <span className='text-gray-400 text-sm'>
+                                    {formatDate(selectedBlog.time)}
+                                </span>
+                            </div>
+                            {selectedBlog.tags && selectedBlog.tags.length > 0 && (
+                                <div className='flex flex-wrap gap-2'>
+                                    {selectedBlog.tags.map((tag) => (
+                                        <span key={tag} className='bg-button text-white px-3 py-1 rounded-full text-xs uppercase tracking-wide'>
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                            <div className='prose max-w-none text-gray-600' dangerouslySetInnerHTML={{ __html: selectedBlog.content }} />
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
